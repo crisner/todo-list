@@ -21,9 +21,9 @@ let todoList = {
     },
 
     // Add a new todo
-    addTodos: function(newTodo) {
+    addTodos: function(todoText) {
         this.todos.push({
-            todoText: newTodo,
+            todoText: todoText,
             completed: false
         });
         this.displayTodos();
@@ -36,9 +36,9 @@ let todoList = {
     },
 
     // Change a todo
-    changeTodo: function(index, changeValue) {
+    changeTodo: function(index, todoText) {
         this.todos.splice(index, 1, {
-            todoText: changeValue,
+            todoText: todoText,
             completed: false
         });
         this.displayTodos();
