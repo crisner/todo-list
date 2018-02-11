@@ -1,27 +1,26 @@
-// alert("connected");
-let todos = ["egg", "butter"];
-let length = todos.length;
+let todoList = {
+    todos: ["egg", "butter"],
 
+    // Display todo list
+    displayTodos: function() {
+        console.log(this.todos);
+    },
 
-// Display todo list
-function displayTodos() {
-    console.log(todos);
-}
+    // Add a new todo
+    addTodos: function(newTodo) {
+        this.todos.push(newTodo);
+        this.displayTodos();
+    },
 
-// Add a new todo
-function addTodos(newTodo) {
-    todos.push(newTodo);
-    displayTodos();
-}
+    // Delete a todo
+    deleteTodo: function(index) {
+        this.todos.splice(index, 1);
+        this.displayTodos();
+    },
 
-// Delete a todo
-function deleteTodo(index) {
-    todos.splice(index, 1);
-    displayTodos();
-}
-
-// Change a todo
-function changeTodo(index, changeValue) {
-    todos.splice(index, 1, changeValue);
-    displayTodos();
+    // Change a todo
+    changeTodo: function(index, changeValue) {
+        this.todos.splice(index, 1, changeValue);
+        this.displayTodos();
+    }
 }
