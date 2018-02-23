@@ -8,16 +8,17 @@
 </head>
 <body>
     <div class="container">
-        <header>
-                <h1>Todo list</h1>
-                <form>
-                    <label for="entertodo"></label>
-                    <input type="text" id="entertodo" placeholder="Enter new todo">
-                    <input type="submit" id="submittodo" value="add">
-                </form>
-        </header>
-        <main id="display">
-            
+        <main>
+            <h1>Todo</h1>
+                <label for="entertodo"></label>
+                <input type="text" id="entertodo" placeholder="Enter new todo">
+                <button onclick="handlers.addTodos()">Add</button>
+                <ul>
+
+                </ul>
+                <div>
+                    <button>Select all</button>
+                </div>
         </main>
     </div>
     
