@@ -20,10 +20,9 @@ let todoList = {
             todoText: todoText,
             completed: false
         });
-        this.displayTodos();
     },
 
-    // Complete a todo
+    // Toggle a todo
     toggleCompleted: function(index) {
         let todo = this.todos[index];
         todo.completed = !todo.completed;
@@ -48,7 +47,6 @@ let todoList = {
                 this.todos[i].completed = true;
             }
         }
-        this.displayTodos();
     } 
 }
 
@@ -66,8 +64,18 @@ let handlers = {
         view.displayTodos();
     },
 
+    changeTodo: function(index, todoText) {
+        todoList.changeTodo(index, todoText);
+        view.displayTodos();
+    },
+
     toggleCompleted: function(index) {
         todoList.toggleCompleted(index);
+        view.displayTodos();
+    },
+
+    toggleAll: function() {
+        todoList.toggleAll();
         view.displayTodos();
     }
 }
@@ -90,17 +98,19 @@ let view = {
                 let todoLi = document.createElement("li");
                 let todoTextContent = "";
                 if (todoList.todos[i].completed === true) {
-                    todoTextContent = "<input type='checkbox' class='toggle' checked>" + todoList.todos[i].todoText;
+                    todoTextContent = "<input type='checkbox' class='toggle' checked><span class='change'>" + todoList.todos[i].todoText + "</span>";
                     console.log("(X)" + todoList.todos[i].todoText);
                 }
                 else {
-                    todoTextContent = "<input type='checkbox' class='toggle'> " + todoList.todos[i].todoText;
+                    todoTextContent = "<input type='checkbox' class='toggle'><span class='change'>" + todoList.todos[i].todoText + "</span>";
                     console.log("( )" + todoList.todos[i].todoText);
                 }
                 todoLi.id = i;
                 todoLi.innerHTML = todoTextContent;
-                // todoLi.insertBefore(this.createCheckedButton(), todoLi.childNodes[0]);
+                todoLi.appendChild(this.createInputField());
                 todoLi.appendChild(this.createDeleteButton());
+                todoLi.querySelector(".change-input").value = todoList.todos[i].todoText;
+                todoLi.querySelector(".change-input").style.display = "none";
                 todoUl.appendChild(todoLi);
             } 
         }
@@ -113,12 +123,11 @@ let view = {
         return deleteButton;
     },
 
-    createCheckedButton: function() {
-        let checked = document.createElement("input");
-        checked.setAttribute("type", "checkbox");
-        checked.setAttribute("class", "toggle");
-        // checked.setAttribute("checked", "unchecked");
-        return checked;
+    createInputField: function() {
+        let inputField = document.createElement("input");
+        inputField.setAttribute("type", "text");
+        inputField.className = "change-input";
+        return inputField;
     },
 
     setEventHandlers: function() {
@@ -133,7 +142,30 @@ let view = {
                 let index = elementClicked.parentNode.id;
                 handlers.toggleCompleted(index);
             }
-            // console.log(e);
+        });
+
+        todoUl.addEventListener("dblclick", function(e){
+            let elementClicked = e.target;
+            if (elementClicked.className === "change") {
+                let index = elementClicked.parentNode.id;
+                let text = elementClicked.nextElementSibling;
+                let todoText = "";
+                text.style.display = "inline";
+                text.focus();
+                elementClicked.textContent = "";
+            }
+        });
+
+        todoUl.addEventListener("keypress", function(e){
+            let elementClicked = e.target;
+            if (elementClicked.className === "change-input") {
+                let index = elementClicked.parentNode.id;
+                let todoText = "";
+                if (e.key === "Enter") {
+                    todoText = elementClicked.value;
+                    handlers.changeTodo(index, todoText);
+                }
+            }
         });
     }
 }
