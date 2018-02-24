@@ -32,24 +32,21 @@ let todoList = {
     toggleAll: function() {
         let completed = 0;
         let totalTodos = this.todos.length;
-        for (var i = 0; i < totalTodos; i++) {
-            if (this.todos[i].completed === true) {
+        this.todos.forEach(function(todo) {
+            if (todo.completed === true) {
                 completed ++;
             }
-        }
-        if (completed === totalTodos) {
-            for (var i = 0; i < totalTodos; i++) {
-                this.todos[i].completed = false;
+        });
+        this.todos.forEach(function(todo) {
+            if (completed === totalTodos) {
+                todo.completed = false;
             }
-        }
-        else {
-            for (var i = 0; i < totalTodos; i++) {
-                this.todos[i].completed = true;
+            else {
+                todo.completed = true;
             }
-        }
+        });
     } 
 }
-
 
 let handlers = {
     addTodos: function() {
@@ -88,31 +85,28 @@ let view = {
         
         if (todoLength === 0) {
             let todoLi = document.createElement("li");
-            let todoTextContent = "";
-            todoLi.innerHTML = "You have not added any todo yet!";
+            let todoTextContent = "You have not added anything todo yet!";
+            todoLi.innerHTML = todoTextContent;
             todoUl.appendChild(todoLi); 
-            console.log("You have not added any todo yet!");
         }
         else {
-            for (var i = 0; i < todoLength; i++) {
+            todoList.todos.forEach(function(todo, index) {
                 let todoLi = document.createElement("li");
                 let todoTextContent = "";
-                if (todoList.todos[i].completed === true) {
-                    todoTextContent = "<input type='checkbox' class='toggle' checked><span class='change'>" + todoList.todos[i].todoText + "</span>";
-                    console.log("(X)" + todoList.todos[i].todoText);
+                if (todo.completed === true) {
+                    todoTextContent = "<input type='checkbox' class='toggle' checked><span class='change'>" + todo.todoText + "</span>";
                 }
                 else {
-                    todoTextContent = "<input type='checkbox' class='toggle'><span class='change'>" + todoList.todos[i].todoText + "</span>";
-                    console.log("( )" + todoList.todos[i].todoText);
+                    todoTextContent = "<input type='checkbox' class='toggle'><span class='change'>" + todo.todoText + "</span>";
                 }
-                todoLi.id = i;
+                todoLi.id = index;
                 todoLi.innerHTML = todoTextContent;
-                todoLi.appendChild(this.createInputField());
-                todoLi.appendChild(this.createDeleteButton());
-                todoLi.querySelector(".change-input").value = todoList.todos[i].todoText;
+                todoLi.appendChild(view.createInputField());
+                todoLi.appendChild(view.createDeleteButton());
+                todoLi.querySelector(".change-input").value = todo.todoText;
                 todoLi.querySelector(".change-input").style.display = "none";
-                todoUl.appendChild(todoLi);
-            } 
+                todoUl.appendChild(todoLi); 
+            });
         }
     },
 
@@ -169,8 +163,6 @@ let view = {
         });
     }
 }
-
-
 
 view.displayTodos();
 view.setEventHandlers();
