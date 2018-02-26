@@ -16,28 +16,9 @@ let todoList = {
 
     // Delete selected todos
     deleteSelected: function() {
-        // USING FOR LOOP
-        // let maxIndex = this.todos.length - 1;
-        // for (let i = maxIndex; i > -1 ; i--) {
-        //     if (this.todos[i].completed === true) {
-        //         this.todos.splice(i, 1);
-        //         // completed.push(i);
-        //     }
-        // }
-        // USING FOREACH
-        // let completed = [];
-        // this.todos.forEach(function(todo) {
-        //     if (todo.completed === false) {
-        //         completed.push(todo);
-        //     }
-        // });
-        // this.todos = completed;
-        // USING FILTER
         this.todos = this.todos.filter(function(todo) {
             return todo.completed === false;
         });
-        
-
     },
 
     // Change a todo
