@@ -5,21 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Todo list</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Quicksand|Work+Sans:300,400" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
 <body>
     <div class="container">
-        <main>
+        <header>
             <h1>Todo</h1>
+        </header>
+        <main>
+            <section class="controls">
                 <label for="entertodo"></label>
                 <input type="text" id="entertodo" placeholder="Enter new todo">
-                <button onclick="handlers.addTodos()">Add</button>
-                <ul>
-
-                </ul>
-                <div>
-                    <button onclick="handlers.toggleAll()">Select all</button>
-                    <button onclick="handlers.deleteSelected()">Delete selected</button>
-                </div>
+                <button id="add" onclick="handlers.addTodos()">&#x2795</button>
+            </section>
+            <ul>
+            </ul>
+            <section class="footer">
+                <button onclick="handlers.toggleAll()"><i class="fas fa-check" data-fa-transform="shrink-6"></i></button>
+                <button onclick="handlers.deleteSelected()"><i class="far fa-trash-alt" data-fa-transform="shrink-6"></i></button>
+            </section>
         </main>
     </div>
     

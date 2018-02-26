@@ -107,11 +107,11 @@ let view = {
                 let todoTextContent = "";
                 if (todo.completed === true) {
                     todoTextContent = "<input type='checkbox' class='toggle' checked><span class='change'>" + todo.todoText + "</span>";
-                    console.log("(X)" + todo.todoText);
+                    // console.log("(X)" + todo.todoText);
                 }
                 else {
                     todoTextContent = "<input type='checkbox' class='toggle'><span class='change'>" + todo.todoText + "</span>";
-                    console.log("( )" + todo.todoText);
+                    // console.log("( )" + todo.todoText);
                 }
                 todoLi.id = index;
                 todoLi.innerHTML = todoTextContent;
@@ -120,6 +120,7 @@ let view = {
                 todoLi.querySelector(".change-input").value = todo.todoText;
                 todoLi.querySelector(".change-input").style.display = "none";
                 todoUl.appendChild(todoLi); 
+                todoUl.appendChild(view.createBorder());
             });
         }
     },
@@ -138,6 +139,12 @@ let view = {
         return inputField;
     },
 
+    createBorder: function() {
+        let border = document.createElement("div");
+        border.className = "border";
+        return border;
+    },
+
     setEventHandlers: function() {
         var todoUl = document.querySelector("ul");
         todoUl.addEventListener("click", function(e) {
@@ -146,7 +153,7 @@ let view = {
                 let index = elementClicked.parentNode.id;
                 handlers.deleteTodo(index);
             }
-            if (elementClicked.className === "toggle" || elementClicked.className === "change") {
+            if (elementClicked.className === "toggle") {
                 let index = elementClicked.parentNode.id;
                 handlers.toggleCompleted(index);
             }
