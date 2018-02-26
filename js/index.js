@@ -14,6 +14,32 @@ let todoList = {
         this.todos.splice(index, 1);
     },
 
+    // Delete selected todos
+    deleteSelected: function() {
+        // USING FOR LOOP
+        // let maxIndex = this.todos.length - 1;
+        // for (let i = maxIndex; i > -1 ; i--) {
+        //     if (this.todos[i].completed === true) {
+        //         this.todos.splice(i, 1);
+        //         // completed.push(i);
+        //     }
+        // }
+        // USING FOREACH
+        // let completed = [];
+        // this.todos.forEach(function(todo) {
+        //     if (todo.completed === false) {
+        //         completed.push(todo);
+        //     }
+        // });
+        // this.todos = completed;
+        // USING FILTER
+        this.todos = this.todos.filter(function(todo) {
+            return todo.completed === false;
+        });
+        
+
+    },
+
     // Change a todo
     changeTodo: function(index, todoText) {
         this.todos.splice(index, 1, {
@@ -61,6 +87,11 @@ let handlers = {
         view.displayTodos();
     },
 
+    deleteSelected: function() {
+        todoList.deleteSelected();
+        view.displayTodos();
+    },
+
     changeTodo: function(index, todoText) {
         todoList.changeTodo(index, todoText);
         view.displayTodos();
@@ -95,9 +126,11 @@ let view = {
                 let todoTextContent = "";
                 if (todo.completed === true) {
                     todoTextContent = "<input type='checkbox' class='toggle' checked><span class='change'>" + todo.todoText + "</span>";
+                    console.log("(X)" + todo.todoText);
                 }
                 else {
                     todoTextContent = "<input type='checkbox' class='toggle'><span class='change'>" + todo.todoText + "</span>";
+                    console.log("( )" + todo.todoText);
                 }
                 todoLi.id = index;
                 todoLi.innerHTML = todoTextContent;
@@ -132,7 +165,7 @@ let view = {
                 let index = elementClicked.parentNode.id;
                 handlers.deleteTodo(index);
             }
-            if (elementClicked.className === "toggle") {
+            if (elementClicked.className === "toggle" || elementClicked.className === "change") {
                 let index = elementClicked.parentNode.id;
                 handlers.toggleCompleted(index);
             }
