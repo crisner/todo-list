@@ -97,7 +97,8 @@ let view = {
         
         if (todoLength === 0) {
             let todoLi = document.createElement("li");
-            let todoTextContent = "You have not added anything todo yet!";
+            todoLi.className = "default";
+            let todoTextContent = "<span id='msg'>You have not added anything todo yet!</span>";
             todoLi.innerHTML = todoTextContent;
             todoUl.appendChild(todoLi); 
         }
