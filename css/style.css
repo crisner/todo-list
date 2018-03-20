@@ -2,6 +2,7 @@ body {
     background-color: #F5F5F5;
     font-family: 'Quicksand', sans-serif;
     font-size: 12px;
+    color: #212121;
 }
 
 h1 {
@@ -30,7 +31,7 @@ main {
 
 section.controls {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     margin: 0;
     padding: 0;
     margin: 0 auto;
@@ -101,6 +102,8 @@ ul li {
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    z-index: 1;
+    transition: all 0.3s ease-in;
 }
 
 ul li.default {
@@ -145,6 +148,7 @@ div.border {
     right: 2.5rem;
     width: 25rem;
     height: 4px;
+    z-index: 2;
     background: repeating-linear-gradient(60deg, rgba(255,179,187,1) 0%,
                                                  rgba(255,179,187,1) 5%,
                                                  rgba(255,255,186,1) 5%, 
@@ -155,6 +159,7 @@ div.border {
                                                  rgba(186,225,255,1) 20%, 
                                                  rgba(244,186,255,1) 20%, 
                                                  rgba(244,186,255,1) 25%);
+    transition: all 0.3s ease-in;
 }
 
 section.footer {
@@ -173,4 +178,39 @@ section.footer {
 
 } */
 
+footer {
+    position: relative;
+    bottom: -10em;
+}
 
+footer > h6 {
+    font-size: 0.8em;
+    margin: 3.4em auto;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+footer > h6 svg {
+    padding: 0 0.1em;
+}
+
+footer > h6 > svg.fa-heart {
+    color: #f27ca5;
+}
+
+footer a,
+footer a:visited {
+    text-decoration: none;
+    color: #212121;
+}
+
+footer a:hover {
+    color: #f48eb1;
+    text-decoration: underline;
+}
+
+/* ANIMATION CLASSES */
+.position {
+    z-index: 0;
+    transition: all 0.3s ease-in;
+}

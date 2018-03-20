@@ -64,28 +64,43 @@ let handlers = {
     },
 
     deleteTodo: function(index) {
+        let todoLength = todoList.todos.length;
         todoList.deleteTodo(index);
         view.displayTodos();
+        if (todoLength > 1) {
+            view.removeAnimation();
+        }
     },
 
     deleteSelected: function() {
-        todoList.deleteSelected();
-        view.displayTodos();
+        let todoLength = todoList.todos.length;
+        view.deleteSelectedTodoAnimation(todoList.todos);
+        setTimeout(function() {
+            todoList.deleteSelected();
+            view.displayTodos();
+            if (todoLength > 1) {
+                view.removeAnimation();
+            }
+        }, 1000);
     },
 
     changeTodo: function(index, todoText) {
         todoList.changeTodo(index, todoText);
         view.displayTodos();
+        view.addAnimation(index);
+        view.removeAnimation();
     },
 
     toggleCompleted: function(index) {
         todoList.toggleCompleted(index);
         view.displayTodos();
+        view.removeAnimation();
     },
 
     toggleAll: function() {
         todoList.toggleAll();
         view.displayTodos();
+        view.removeAnimation();
     }
 }
 
@@ -93,6 +108,8 @@ let view = {
     displayTodos: function() {
         let todoLength = todoList.todos.length;
         let todoUl = document.querySelector("ul");
+        let indices = [];
+        currentIndex = 0;
         todoUl.innerHTML = "";
         
         if (todoLength === 0) {
@@ -108,11 +125,9 @@ let view = {
                 let todoTextContent = "";
                 if (todo.completed === true) {
                     todoTextContent = "<input type='checkbox' class='toggle' checked><span class='change'>" + todo.todoText + "</span>";
-                    // console.log("(X)" + todo.todoText);
                 }
                 else {
                     todoTextContent = "<input type='checkbox' class='toggle'><span class='change'>" + todo.todoText + "</span>";
-                    // console.log("( )" + todo.todoText);
                 }
                 todoLi.id = index;
                 todoLi.innerHTML = todoTextContent;
@@ -122,8 +137,51 @@ let view = {
                 todoLi.querySelector(".change-input").style.display = "none";
                 todoUl.appendChild(todoLi); 
                 todoUl.appendChild(view.createBorder());
+                indices.push(index);
             });
+            currentIndex = Math.max(...indices);
+            this.addAnimation(currentIndex);
         }
+    },
+
+    addAnimation: function(index) {
+        let getLi = document.querySelectorAll("li");
+        let border = document.querySelectorAll(".border");
+        let currentLi = getLi[index];
+        let currentBorder = border[index];
+        currentLi.classList = "animated fadeInDown position";
+        currentBorder.classList = "border animated fadeIn";
+    },
+
+    removeAnimation: function() {
+        let getLi = document.querySelectorAll("li");
+        let border = document.querySelectorAll(".border");
+        let currentLi = getLi[getLi.length-1];
+        let currentBorder = border[getLi.length-1];
+        currentLi.classList = "position";
+        currentBorder.classList = "border";
+    },
+
+    deleteTodoAnimation: function(index) {
+        let getLi = document.querySelectorAll("li");
+        let border = document.querySelectorAll(".border");
+        let currentLi = getLi[index];
+        let currentBorder = border[index];
+        currentLi.classList = "animated fadeOut";
+        currentBorder.classList = "border animated fadeOut";
+    },
+
+    deleteSelectedTodoAnimation: function(todos) {
+        let getLi = document.querySelectorAll("li");
+        let border = document.querySelectorAll(".border");
+        todos.forEach(function(todo, index) {
+            let currentLi = getLi[index];
+            let currentBorder = border[index];
+            if (todo.completed) {
+                currentLi.classList = "animated fadeOut";
+                currentBorder.classList = "border animated fadeOut";
+            }  
+        });
     },
 
     createDeleteButton: function() {
@@ -152,7 +210,10 @@ let view = {
             let elementClicked = e.target;
             if (elementClicked.className === "delete") {
                 let index = elementClicked.parentNode.id;
-                handlers.deleteTodo(index);
+                view.deleteTodoAnimation(index);
+                setTimeout(function() {
+                    handlers.deleteTodo(index);
+                }, 1000);
             }
             if (elementClicked.className === "toggle") {
                 let index = elementClicked.parentNode.id;
