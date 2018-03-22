@@ -164,7 +164,6 @@ let handlers = {
     changeTodo: function(index, todoText) {
         todoList.changeTodo(index, todoText); // TODO: Call the changeTodo method from the todoList object
         view.displayTodos();
-        view.addAnimation(index);
         view.removeAnimation();
     },
     /**
