@@ -117,12 +117,18 @@ let handlers = {
      * @memberof handlers
      */
     addTodos: function() {
-        todoTextInput = document.getElementById("entertodo");
+        let todoTextInput = document.getElementById("entertodo");
+        todoTextInput.setAttribute("placeholder", "Enter new todo");
         // TODO: Call addTodos method of todoList
-        todoList.addTodos(todoTextInput.value);
+        if (todoTextInput.value !== "") {
+            todoList.addTodos(todoTextInput.value);
+            view.displayTodos();
+        } else {
+            todoTextInput.setAttribute("placeholder", "Please add a todo to your list");
+            view.displayTodos();
+            view.removeAnimation();
+        }
         todoTextInput.value = "";
-        // TODO: Display todo items
-        view.displayTodos();
     },
     /**
      * Event handler method for deleting todo items
@@ -271,8 +277,10 @@ let view = {
         let currentLi = getLi[getLi.length-1];
         let currentBorder = border[getLi.length-1];
         // TODO: Assign default classes with no animation
-        currentLi.classList = "position";
-        currentBorder.classList = "border";
+        if (getLi[0].className !== "default") {
+            currentLi.classList = "position";
+            currentBorder.classList = "border";
+        }
     },
     /**
      * Add animation for delete todo action
@@ -353,6 +361,7 @@ let view = {
      */
     setEventHandlers: function() {
         var todoUl = document.querySelector("ul");
+        var entertodo = document.querySelector("#entertodo");
         /**
          * Add event listener for delete and toggle
          */
@@ -405,6 +414,15 @@ let view = {
                     handlers.changeTodo(index, todoText);
                 }
             }
+        });
+        /**
+         * Add event listener to add todo item on enter
+         */
+        entertodo.addEventListener("keypress", function(e){
+            let elementClicked = e.target;
+                if (e.key === "Enter") {
+                    handlers.addTodos();
+                }
         });
     }
 }

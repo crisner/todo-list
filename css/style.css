@@ -191,6 +191,13 @@ section.footer {
     overflow: hidden;
     -webkit-box-shadow: 1px 2px 6px 1px rgba(189,189,189 ,0.2);
             box-shadow: 1px 2px 6px 1px rgba(189,189,189 ,0.2);
+    z-index: 1;
+}
+
+h5 {
+    text-align: center;
+    color: #ccc9c9;
+    letter-spacing: 0.05em;
 }
 
 /* FOOTER */
