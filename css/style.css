@@ -236,3 +236,43 @@ footer a:hover {
 .position {
     z-index: 0;
 }
+
+/* MEDIA QUERIES */
+/* Device = Most of the Smartphones Mobiles (Portrait) */
+@media (min-width: 360px) and (max-width: 480px) {
+    #entertodo {
+        width: 87.4%;
+    }
+    ul {
+        padding: 0;
+    }
+    ul li {
+        width: 100%;
+        right: 0;
+        text-align: center;
+    }
+    ul li.default {
+        padding: 1rem 0;
+        display: inherit;
+        text-align: center;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 359px) {
+    #entertodo {
+        width: 85%;
+    }
+    ul {
+        padding: 0;
+    }
+    ul li {
+        width: 100%;
+        right: 0;
+        text-align: center;
+    }
+    ul li.default {
+        padding: 1rem 0;
+        display: inherit;
+        text-align: center;
+    }
+}
