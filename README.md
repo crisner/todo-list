@@ -1,8 +1,9 @@
 # Todo List
 ###### A simple todo list project
 
-### About
-This project uses plain JavaScript
+### Tools used
+- plain JavaScript
+- Animate.css
 
 ### Usage
 - To add a new todo
@@ -14,11 +15,16 @@ This project uses plain JavaScript
 - Click on the **trashcan** icon to delete all completed todo items
 - Double-click on the todo text to change the todo and press enter
 
-### Link to the project GitHub page
+### Link to the project's GitHub page
 Go to [Todo List](https://crisner.github.io/todo-list/).
+
+### To View Project Locally
+- Clone the repo to your local machine
+- Open the index.html file using your browser
 
 ### Credit
 - Coded by [me(Renisha Christie)](http://www.renishachristie.com)
 - Font icons from [Font Awesome](https://fontawesome.com/icons?d=gallery)
 - Css animations using [Animate.css](https://daneden.github.io/animate.css/)
 - Documentation created using [JSDoc](http://usejsdoc.org)
+- Fonts from Google fonts
